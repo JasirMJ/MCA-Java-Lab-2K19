@@ -1,0 +1,51 @@
+package RmiCalculator;
+
+import java.rmi.Naming;
+import java.util.Scanner;
+
+public class CalculatorClient {
+    public static void main(String args[]) throws Exception {
+        Scanner sc =new Scanner(System.in);
+        try
+        {
+            InterfaceCalc c= (InterfaceCalc)Naming.lookup("//localhost/rmi");
+            while(true){
+                System.out.println("Enter your choice:\n1.ADD 2.SUB 3.MUL 4.DIV 5.EXIT");
+                int choice =sc.nextInt();
+                if (choice == 5){
+                    break;
+                }
+                else{
+                    int x,y;
+                    System.out.println("Enter values for x and y");
+                    x=sc.nextInt();
+                    y=sc.nextInt();
+                    
+                    switch(choice)
+                    {
+                        case 1:{
+                            System.out.println(c.add(x,y));
+                            break;
+                        }
+                        case 2:{
+                            System.out.println(c.sub(x,y));
+                            break;
+                        }
+                        case 3:{
+                            System.out.println(c.mul(x,y));
+                            break;
+                        }
+                        case 4:{
+                            System.out.println(c.div(x,y));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        catch(Exception e)
+                {
+                  System.out.println("error : "+e);
+                }
+    }
+}
